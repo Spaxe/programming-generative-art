@@ -1,62 +1,78 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Creative Coding — WDYK Melbourne Edition</title>
+    <title>Creative Coding — WDYK Melbourne Edition</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/night.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/night.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link  = document.createElement( 'link' );
-			link.rel  = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-					<h2>From Chaos to Order: Drawing with Random Numbers</h1>
-					<p>@Xavier_Ho, Data61</p>
-				</section>
-				<section>
-						<h2>Random Numbers</h2>
-						<div id="intro"></div>
-				</section>
-			</div>
-		</div>
+    <!-- Printing and PDF exports -->
+    <script>
+      var link  = document.createElement( 'link' );
+      link.rel  = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>From Chaos to Order: Drawing with Random Numbers</h1>
+          <p>@Xavier_Ho, Data61</p>
+        </section>
+        <section>
+          <h2>#generative</h2>
+          <div class="tweet" data-src="https://twitter.com/inconvergent/status/942335517080870912"></div>
+        </section>
+        <section>
+            <h2>Random Numbers</h2>
+            <div id="intro"></div>
+        </section>
+        <section>
+          <h2>Next up: Subdivisions</h2>
+          <div class="tweet" data-src="https://twitter.com/kGolid/status/972852438968537088"></div>
+        </section>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
-		<script src="js/utils.js"></script>
-		<script src="js/drawing.js"></script>
+      </div>
+    </div>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				],
-				history: true,
-				progress: false,
-				controls: false,
-				width: window.innerWidth,
-				height: window.innerHeight,
-			});
-		</script>
-	</body>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/drawing.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/embed-tweet/embed-tweet.js' },
+        ],
+        history: true,
+        progress: false,
+        controls: false,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+
+      Reveal.addEventListener( 'slidechanged', event => {
+        // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+        console.log(event.currentSlide);
+      });
+    </script>
+  </body>
 </html>

@@ -26,7 +26,6 @@ const initCanvas = (selector, width, height) => {
 
 const generateLineCoords = (width, n) => {
   let coords = [];
-  n = clamp(2, width, n);
   const gap = width / (n - 1);
   for (let i = 0; i < n; i++) {
     coords.push([i * gap, 0]);
@@ -57,15 +56,20 @@ const generateAccumulatedCoefficients = (coeffs) => {
   });
 };
 
-const startAnimation = (ctx, [offsetX, offsetY], func, params, update, fade=0.992) => {
+const loopAnimation = (ctx, [offsetX, offsetY], func, params, update, fade=0.992) => {
   let opacity = 1;
+  let initialParams = JSON.parse(JSON.stringify(params));
   const callback = () => {
     func.apply(null, [ctx, [offsetX, offsetY], opacity].concat(params));
     params = update(params);
     opacity *= fade;
-    if (opacity > 1e-6) {
-      window.requestAnimationFrame(callback);
+    if (opacity < 1e-3) {
+      ctx.beginPath();
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      opacity = 1;
+      params = initialParams;
     }
+    window.requestAnimationFrame(callback);
   };
   callback();
 };

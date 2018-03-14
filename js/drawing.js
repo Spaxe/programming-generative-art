@@ -1,5 +1,6 @@
 // Let us find order among chaos
 
+//
 const width = window.innerWidth,
       height = width / 3,
       N = width/2+1,
@@ -10,7 +11,7 @@ const coords = generateLineCoords(width, N);
 const coeffs = generateCoefficients(N, scales);
 const coeffs2 = generateAccumulatedCoefficients(coeffs);
 
-startAnimation(ctx, [0, height/2], circles, [0.5, coords],
+loopAnimation(ctx, [0, height/2], circles, [0.5, coords],
   ([r, coords]) => {
     const newCoeffs = generateCoefficients(N, scales);
     const newCoeffs2 = generateAccumulatedCoefficients(newCoeffs);
