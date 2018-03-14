@@ -14,7 +14,7 @@ const shuffle = (a) => {
 
 const move = (p, v, a) => ([p[0]+v[0]+a[0], p[1]+v[1]+a[1]]);
 
-const initCanvas = (selector, width=600, height=300) => {
+const initCanvas = (selector, width, height) => {
   const parent = document.querySelector(selector);
   const canvas = document.createElement('canvas');
   canvas.width = width;
@@ -35,52 +35,46 @@ const generateLineCoords = (width, n) => {
 };
 
 const generateCoefficients = (n, scales=[0.1, 0.1]) => {
-  let accumulateX = 0;
-  let accumulateY = 0;
   let coeffs = [];
-  let coeffs2 = [];
   n = Math.max(n, 2);
 
   for (let i = 0; i < n; i++) {
     let dx = (random() - 0.5) * scales[0];
     let dy = (random() - 0.5) * scales[1];
     coeffs.push([dx, dy]);
-    accumulateX = accumulateX + dx;
-    accumulateY = accumulateY + dy;
-    coeffs2.push([accumulateX, accumulateY]);
   }
-  return [coeffs, coeffs2];
+  return coeffs;
 };
 
-const animate = (func, params, update, maxIterations=500, iteration=0) => {
+const generateAccumulatedCoefficients = (coeffs) => {
+  let accumulateX = 0;
+  let accumulateY = 0;
+
+  return coeffs.map(([x, y]) => {
+    accumulateX += x;
+    accumulateY += y;
+    return [accumulateX, accumulateY];
+  });
+};
+
+const startAnimation = (ctx, [offsetX, offsetY], func, params, update, fade=0.992) => {
+  let opacity = 1;
   const callback = () => {
-    func.apply(null, params);
-    let coords = params[params.length-1];
-    params[params.length-1] = update(coords);
-    iteration++;
-    if (iteration < maxIterations) {
+    func.apply(null, [ctx, [offsetX, offsetY], opacity].concat(params));
+    params = update(params);
+    opacity *= fade;
+    if (opacity > 1e-6) {
       window.requestAnimationFrame(callback);
     }
   };
   callback();
 };
 
-const circle = (ctx, [x, y], r, fill) => {
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, 2*Math.PI, true);
-  if (fill) {
-    ctx.fillStyle = fill;
+const circles = (ctx, [offsetX, offsetY], opacity, r, coords) => {
+  for (let i = 0; i < coords.length; i++) {
+    ctx.beginPath();
+    ctx.arc(offsetX+coords[i][0], offsetY+coords[i][1], r, 0, 2*Math.PI, true);
+    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
     ctx.fill();
   }
-};
-
-
-const drawMap = (shape, shapeParams, context, [offsetX, offsetY], coords) => {
-  coords.forEach(([x, y]) => {
-    shape(context, [x+offsetX, y+offsetY], ...shapeParams);
-  });
-};
-
-const drawCircles = (...args) => {
-  return drawMap(circle, [0.5, 'white'], ...args);
 };
