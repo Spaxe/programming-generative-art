@@ -1,0 +1,9 @@
+.reveal pre code {
+  font-family: 'FiraCode-Light', 'Courier New', monospace;
+  line-height: 1.25;
+  padding: 0.5em 1em;
+}
+
+.reveal pre code.large {
+  font-size: 200%;
+}

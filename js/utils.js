@@ -1,3 +1,4 @@
+const id = x => x;
 const random = Math.random;
 
 const clamp = (min, max, x) => {
@@ -33,9 +34,18 @@ const generateLineCoords = (width, n) => {
   return coords;
 };
 
+const generateCircleCoords = (radius, n) => {
+  let coords = [];
+  for (let i = 0; i < n; i++) {
+    const cx = radius * Math.cos(Math.PI / n * 2 * i);
+    const cy = radius * Math.sin(Math.PI / n * 2 * i);
+    coords.push([ cx, cy ]);
+  }
+  return coords;
+};
+
 const generateCoefficients = (n, scales=[0.1, 0.1]) => {
   let coeffs = [];
-  n = Math.max(n, 2);
 
   for (let i = 0; i < n; i++) {
     let dx = (random() - 0.5) * scales[0];
@@ -56,20 +66,25 @@ const generateAccumulatedCoefficients = (coeffs) => {
   });
 };
 
-const loopAnimation = (ctx, [offsetX, offsetY], func, params, update, fade=0.992) => {
+const loopAnimation = (ctx, [offsetX, offsetY], drawFunc, params, update, fade=0.992) => {
   let opacity = 1;
   let initialParams = JSON.parse(JSON.stringify(params));
   const callback = () => {
-    func.apply(null, [ctx, [offsetX, offsetY], opacity].concat(params));
+    drawFunc(ctx, [offsetX, offsetY], opacity, ...params);
     params = update(params);
     opacity *= fade;
-    if (opacity < 1e-3) {
-      ctx.beginPath();
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      opacity = 1;
-      params = initialParams;
+    if (opacity < 1/255 ) {
+      window.setTimeout(() => {
+        ctx.beginPath();
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        opacity = 1;
+        params = initialParams;
+        window.requestAnimationFrame(callback);
+      }, 1000);
+    } else {
+      window.requestAnimationFrame(callback);
     }
-    window.requestAnimationFrame(callback);
+
   };
   callback();
 };
@@ -80,5 +95,14 @@ const circles = (ctx, [offsetX, offsetY], opacity, r, coords) => {
     ctx.arc(offsetX+coords[i][0], offsetY+coords[i][1], r, 0, 2*Math.PI, true);
     ctx.fillStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
     ctx.fill();
+  }
+};
+
+const circlesStroked = (ctx, [offsetX, offsetY], opacity, r, coords) => {
+  for (let i = 0; i < coords.length; i++) {
+    ctx.beginPath();
+    ctx.arc(offsetX+coords[i][0], offsetY+coords[i][1], r, 0, 2*Math.PI, true);
+    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
+    ctx.stroke();
   }
 };
