@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 1200px) {
-  h1, h2, p {
+  .reveal h1, .reveal h2, .reveal p {
     font-size: 50%;
   }
   .reveal pre code.large {
