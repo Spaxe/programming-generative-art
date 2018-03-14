@@ -174,7 +174,7 @@
 /////////////////////////////////////////////////////////////////////////////
 (() => {
   const width = window.innerWidth,
-        height = width / 2,
+        height = width / 3,
         N = Math.round(width/5+1),
         scales = [0.02, 0.02];
   const ctx = initCanvas('#circle-order', width, height);
