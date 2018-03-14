@@ -7,3 +7,12 @@
 .reveal pre code.large {
   font-size: 200%;
 }
+
+@media (max-width: 1200px) {
+  h1, h2, p {
+    font-size: 50%;
+  }
+  .reveal pre code.large {
+    font-size: 50%;
+  }
+}
