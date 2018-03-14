@@ -1,6 +1,6 @@
 # From Chaos to Order
 
-Built with Reveal.js. To run the presentation, clone this repository.
+To run the presentation, clone this repository.
 
 1. Install dependencies
    ```sh
