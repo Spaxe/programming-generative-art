@@ -33,7 +33,7 @@
 (() => {
   const width = window.innerWidth,
         height = width / 3,
-        N = width/20+1,
+        N = Math.round(width/20+1),
         scales = [0.2, 10];
   const ctx = initCanvas('#line', width, height);
   const coords = generateLineCoords(width, N);
@@ -61,7 +61,7 @@
 (() => {
   const width = window.innerWidth,
         height = width / 3,
-        N = width/20+1,
+        N = Math.round(width/20+1),
         scales = [0.1, 1];
   const ctx = initCanvas('#line-order', width, height);
   const coords = generateLineCoords(width, N);
@@ -89,7 +89,7 @@
 (() => {
   const width = window.innerWidth,
         height = width / 2,
-        N = width/5+1,
+        N = Math.round(width/5+1),
         scales = [0.1, 2];
   const ctx = initCanvas('#line-order-more', width, height);
   const coords = generateLineCoords(width, N);
@@ -116,7 +116,7 @@
 (() => {
   const width = window.innerWidth,
         height = width / 2,
-        N = width/5+1,
+        N = Math.round(width/5+1),
         scales = [1.5, 1.5];
   const ctx = initCanvas('#line-order-2d', width, height);
   const coords = generateLineCoords(width, N);
@@ -143,7 +143,7 @@
 (() => {
   const width = window.innerWidth,
         height = width / 2,
-        N = width/5+1,
+        N = Math.round(width/5+1),
         scales = [0.3, 0.3],
         scales2 = [2.5, 2.5];
   const ctx = initCanvas('#line-order-2d-small-step', width, height);
@@ -175,7 +175,7 @@
 (() => {
   const width = window.innerWidth,
         height = width / 2,
-        N = width/5+1,
+        N = Math.round(width/5+1),
         scales = [0.02, 0.02];
   const ctx = initCanvas('#circle-order', width, height);
   const coords = generateCircleCoords(height / 3, N);
