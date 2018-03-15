@@ -29,6 +29,15 @@ const initCanvas = (selector, width, height) => {
   return ctx;
 };
 
+const generateRandomLine = (scales=[1, 1]) => {
+  const R = () => random() - 0.5;
+  return [
+    [R() * scales[0], R() * scales[1]],
+    [R() * scales[0], R() * scales[1]],
+    [R() * scales[0], R() * scales[1]],
+  ];
+};
+
 const generateLineCoords = (width, n) => {
   let coords = [];
   const gap = width / (n - 1);
@@ -94,19 +103,27 @@ const loopAnimation = (ctx, [offsetX, offsetY], drawFunc, params, update, fade=0
 };
 
 const circles = (ctx, [offsetX, offsetY], opacity, r, coords) => {
+  ctx.fillStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
   for (let i = 0; i < coords.length; i++) {
     ctx.beginPath();
     ctx.arc(offsetX+coords[i][0], offsetY+coords[i][1], r, 0, 2*Math.PI, true);
-    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
     ctx.fill();
   }
 };
 
 const circlesStroked = (ctx, [offsetX, offsetY], opacity, r, coords) => {
+  ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
   for (let i = 0; i < coords.length; i++) {
     ctx.beginPath();
     ctx.arc(offsetX+coords[i][0], offsetY+coords[i][1], r, 0, 2*Math.PI, true);
-    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
     ctx.stroke();
   }
+};
+
+const generativeLines = (ctx, [offsetX, offsetY], opacity, thickness, coords) => {
+  ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
+  ctx.beginPath();
+  ctx.moveTo(offsetX + coords[1][0], offsetY + coords[1][1]);
+  ctx.lineTo(offsetX + coords[2][0], offsetY + coords[2][1])
+  ctx.stroke();
 };

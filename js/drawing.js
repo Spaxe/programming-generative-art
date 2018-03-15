@@ -203,3 +203,54 @@
     }
   );
 })();
+
+
+/////////////////////////////////////////////////////////////////////////////
+// generative geometry
+/////////////////////////////////////////////////////////////////////////////
+(() => {
+  const width = window.innerWidth,
+        height = window.innerHeight,
+        scales = [height/20, height/20];
+  const ctx = initCanvas('#generative', width, height);
+  const coords = generateRandomLine(scales);
+  let trianglePoint = coords[0];
+
+  loopAnimation(ctx, [width/2, height/2],
+    generativeLines,
+    [1, coords],
+    ([thickness, coords]) => {
+
+      const path = random();
+
+      if (path < 0.05) { // return to second previous path and form triangle
+
+        let output = [ thickness,
+          [
+            coords[1],
+            coords[2],
+            trianglePoint,
+          ]
+        ];
+        trianglePoint = coords[2];
+        return output;
+
+      } else {
+
+        const coeffs = generateCoefficients(coords.length, scales);
+        let newCoords = move(coords[2], coeffs[0], coeffs[1]);
+
+        trianglePoint = coords[1];
+        return [ thickness,
+          [
+            trianglePoint,
+            coords[2],
+            newCoords,
+          ],
+        ];
+
+      }
+    },
+    0.999
+  );
+})();
