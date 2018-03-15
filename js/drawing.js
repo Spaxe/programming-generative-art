@@ -211,8 +211,8 @@
 (() => {
   const width = window.innerWidth,
         height = window.innerHeight,
-        scales = [height/14, height/14],
-        coeffScales = [height/14, height/14];
+        scales = [width/14, height/14],
+        coeffScales = [width/14, height/14];
   const ctx = initCanvas('#generative', width, height);
   const coords = generateRandomLine(scales);
   let trianglePoint = coords[0];
@@ -254,6 +254,6 @@
 
       }
     },
-    0.99
+    0.9925
   );
 })();
