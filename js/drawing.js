@@ -238,12 +238,12 @@
             movedCoords,
           ]
         ];
-        trianglePoint = coords[2];
+        trianglePoint = coords[0];
         return output;
 
       } else {
 
-        trianglePoint = coords[2];
+        trianglePoint = coords[0];
         return [ thickness,
           [
             coords[2],
