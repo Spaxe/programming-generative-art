@@ -126,15 +126,19 @@ const generativeLines = (ctx, [offsetX, offsetY], opacity, thickness, coords) =>
 
   const randomShape = random();
 
-  if (randomShape < 0.1) { // draw a thick line
+  if (randomShape < 0.1) { // draw nothing
+
+  } else if (randomShape < 0.2) { // draw a thick line
     ctx.lineWidth = thickness * 5;
     ctx.moveTo(offsetX + coords[0][0], offsetY + coords[0][1]);
     ctx.lineTo(offsetX + coords[1][0], offsetY + coords[1][1]);
+    ctx.stroke();
+    ctx.lineWidth = thickness;
     ctx.lineTo(offsetX + coords[2][0], offsetY + coords[2][1]);
     ctx.stroke();
-  } else if (randomShape < 0.125) {  // draw a circle
+  } else if (randomShape < 0.225) {  // draw a circle
     ctx.lineWidth = thickness;
-    ctx.arc(offsetX+coords[1][0], offsetY+coords[1][1], Math.max(random() * 50, 10), 0, 2*Math.PI, true);
+    ctx.arc(offsetX+coords[2][0], offsetY+coords[2][1], Math.max(random() * 50, 10), 0, 2*Math.PI, true);
     ctx.stroke();
   } else {  // draw ... a line
     ctx.lineWidth = thickness;
