@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 (() => {
   const width = window.innerWidth,
-        height = window.innerHeight/1.2,
+        height = window.innerHeight/1.5,
         N = 1,
         scales = [10, 10];
   const ctx = initCanvas('#circle', width, height);
@@ -176,7 +176,8 @@
   const width = window.innerWidth,
         height = width / 3,
         N = Math.round(width/5+1),
-        scales = [0.02, 0.02];
+        scales = [0.02, 0.02],
+        scales2 = [2.5, 2.5];
   const ctx = initCanvas('#circle-order', width, height);
   const coords = generateCircleCoords(height / 3, N);
 
@@ -186,9 +187,13 @@
     ([r, coords]) => {
       const coeffs = generateCoefficients(N, scales);
       const coeffs2 = generateAccumulatedCoefficients(coeffs);
+      const newCoeffs = generateCoefficients(N, scales2);
+
       return [ r,
         coords.map( (coord, i) => {
-          let newCoord = move(coord, coeffs[i], coeffs2[i]);
+          let newCoord = moveRadial(coord, 1.001);
+          newCoord = move(newCoord, coeffs[i], coeffs2[i]);
+          newCoord = move(newCoord, newCoeffs[i], [0, 0]);
           for (let w = 0; w < 50; w++) {
             newCoord = move(newCoord, coeffs[(N+i-w) % N], coeffs2[(N+i-w) % N]);
           }

@@ -1,5 +1,8 @@
 const id = x => x;
-const random = Math.random;
+let random = new alea(Math.random().toString(36).substring(16));
+window.setInterval( () => {
+  random = new alea(Math.random().toString(36).substring(16));
+}, 5000);
 
 const clamp = (min, max, x) => {
   return Math.max(min, Math.min(max, x));
@@ -14,6 +17,7 @@ const shuffle = (a) => {
 }
 
 const move = (p, v, a) => ([p[0]+v[0]+a[0], p[1]+v[1]+a[1]]);
+const moveRadial = ([x, y], amount) => ([x * amount, y * amount]);
 
 const initCanvas = (selector, width, height) => {
   const parent = document.querySelector(selector);
