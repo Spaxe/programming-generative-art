@@ -211,7 +211,8 @@
 (() => {
   const width = window.innerWidth,
         height = window.innerHeight,
-        scales = [height/20, height/20];
+        scales = [height/10, height/10],
+        coeffScales = [height/10, height/10];
   const ctx = initCanvas('#generative', width, height);
   const coords = generateRandomLine(scales);
   let trianglePoint = coords[0];
@@ -221,15 +222,20 @@
     [1, coords],
     ([thickness, coords]) => {
 
-      const path = random();
+      const coeffs = generateCoefficients(coords.length, coeffScales);
+      const movedCoords = move(coords[2], coeffs[0], coeffs[1]);
+      let movedCoords2 = move(movedCoords, coeffs[0], coeffs[2]);
+      movedCoords2 = moveRadial(movedCoords2, 0.925);
 
-      if (path < 0.05) { // return to second previous path and form triangle
+      const S = random();
+
+      if (S < 0.75) { // return to second previous path and form triangle
 
         let output = [ thickness,
           [
-            coords[1],
             coords[2],
             trianglePoint,
+            movedCoords,
           ]
         ];
         trianglePoint = coords[2];
@@ -237,20 +243,17 @@
 
       } else {
 
-        const coeffs = generateCoefficients(coords.length, scales);
-        let newCoords = move(coords[2], coeffs[0], coeffs[1]);
-
-        trianglePoint = coords[1];
+        trianglePoint = coords[2];
         return [ thickness,
           [
-            trianglePoint,
             coords[2],
-            newCoords,
+            movedCoords,
+            movedCoords2,
           ],
         ];
 
       }
     },
-    0.999
+    0.992
   );
 })();
