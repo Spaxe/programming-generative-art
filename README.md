@@ -1,5 +1,7 @@
 # From Chaos to Order
 
+[View the slides online here](https://github.com/Spaxe/WDYK-Melbourne).
+
 To run the presentation, clone this repository.
 
 1. Install dependencies
