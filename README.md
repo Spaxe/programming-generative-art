@@ -1,6 +1,6 @@
 # From Chaos to Order
 
-[View the slides online here](https://github.com/Spaxe/WDYK-Melbourne).
+[View the slides online here](https://spaxe.github.io/WDYK-Melbourne).
 
 To run the presentation, clone this repository.
 
