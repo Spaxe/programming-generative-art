@@ -161,3 +161,11 @@ const generativeLines = (ctx, [offsetX, offsetY], opacity, thickness, coords) =>
   }
 
 };
+
+const setupSlide = (id, width, height, func) => {
+  const ctx = initCanvas(`#${id}`, width, height);
+  Reveal.addEventListener(id, () => { func(ctx, width, height) }, false);
+};
+
+const getWindowWidth = () => window.innerWidth;
+const getWindowHeight = () => window.innerHeight;
