@@ -21,7 +21,7 @@ const moveRadial = ([x, y], amount) => ([x * amount, y * amount]);
 
 const initCanvas = (selector, width, height) => {
   const parent = document.querySelector(selector);
-  const canvas = document.createElement('canvas');
+  const canvas = parent.querySelector('canvas') || document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
   parent.appendChild(canvas);
@@ -79,25 +79,37 @@ const generateAccumulatedCoefficients = (coeffs) => {
   });
 };
 
+const deepcopy = (x) => JSON.parse(JSON.stringify(x));
+
 const loopAnimation = (ctx, [offsetX, offsetY], drawFunc, params, update, fade=0.992) => {
   let opacity = 1;
-  let initialParams = JSON.parse(JSON.stringify(params));
+  let initialParams = deepcopy(params);
+
+  // Stop the loop if the slide has changed
+  const initialSlideState = Reveal.getIndices();
+  const loop = (func) => {
+    if (initialSlideState.h !== Reveal.getIndices().h) {
+      return;
+    } else {
+      window.requestAnimationFrame(func);
+    }
+  };
+
   const callback = () => {
     drawFunc(ctx, [offsetX, offsetY], opacity, ...params);
     params = update(params);
     opacity *= fade;
-    if (opacity < 1/255 ) {
+    if (opacity < 1/255) {
       window.setTimeout(() => {
         ctx.beginPath();
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         opacity = 1;
         params = initialParams;
-        window.requestAnimationFrame(callback);
+        loop(callback);
       }, 1000);
     } else {
-      window.requestAnimationFrame(callback);
+      loop(callback);
     }
-
   };
   callback();
 };

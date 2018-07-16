@@ -5,6 +5,12 @@
 /////////////////////////////////////////////////////////////////////////////
 (() => {
   const width = window.innerWidth,
+        height = window.innerHeight/1.5;
+  initCanvas('#circle', width, height);
+})();
+
+Reveal.addEventListener('circle', () => {
+  const width = window.innerWidth,
         height = window.innerHeight/1.5,
         N = 1,
         scales = [10, 10];
@@ -25,12 +31,18 @@
     },
     0.95
   );
-})();
+}, false);
 
 /////////////////////////////////////////////////////////////////////////////
 // line
 /////////////////////////////////////////////////////////////////////////////
 (() => {
+  const width = window.innerWidth,
+        height = width / 3;
+  initCanvas('#line', width, height);
+})();
+
+Reveal.addEventListener('line', () => {
   const width = window.innerWidth,
         height = width / 3,
         N = Math.round(width/20+1),
@@ -52,13 +64,19 @@
     },
     0.98
   );
-})();
+}, false);
 
 
 /////////////////////////////////////////////////////////////////////////////
 // line - ordered
 /////////////////////////////////////////////////////////////////////////////
 (() => {
+  const width = window.innerWidth,
+        height = width / 3;
+  initCanvas('#line-order', width, height);
+})();
+
+Reveal.addEventListener('line-order', () => {
   const width = window.innerWidth,
         height = width / 3,
         N = Math.round(width/20+1),
@@ -80,13 +98,19 @@
     },
     0.99
   );
-})();
+}, false);
 
 
 /////////////////////////////////////////////////////////////////////////////
 // line - ordered - more
 /////////////////////////////////////////////////////////////////////////////
 (() => {
+  const width = window.innerWidth,
+        height = width / 2;
+  initCanvas('#line-order-more', width, height);
+})();
+
+Reveal.addEventListener('line-order-more', () => {
   const width = window.innerWidth,
         height = width / 2,
         N = Math.round(width/5+1),
@@ -107,13 +131,19 @@
       ];
     }
   );
-})();
+}, false);
 
 
 /////////////////////////////////////////////////////////////////////////////
 // 2D ordered
 /////////////////////////////////////////////////////////////////////////////
 (() => {
+  const width = window.innerWidth,
+        height = width / 2;
+  initCanvas('#line-order-2d', width, height);
+})();
+
+Reveal.addEventListener('line-order-2d', () => {
   const width = window.innerWidth,
         height = width / 2,
         N = Math.round(width/5+1),
@@ -134,13 +164,19 @@
       ];
     }
   );
-})();
+}, false);
 
 
 /////////////////////////////////////////////////////////////////////////////
 // 2D ordered - 2 veolcities
 /////////////////////////////////////////////////////////////////////////////
 (() => {
+  const width = window.innerWidth,
+        height = width / 2;
+  initCanvas('#line-order-2d-small-step', width, height);
+})();
+
+Reveal.addEventListener('line-order-2d-small-step', () => {
   const width = window.innerWidth,
         height = width / 2,
         N = Math.round(width/5+1),
@@ -166,13 +202,19 @@
       ];
     }
   );
-})();
+}, false);
 
 
 /////////////////////////////////////////////////////////////////////////////
 // circle ordered
 /////////////////////////////////////////////////////////////////////////////
 (() => {
+  const width = window.innerWidth,
+        height = width / 3;
+  initCanvas('#circle-order', width, height);
+})();
+
+Reveal.addEventListener('circle-order', () => {
   const width = window.innerWidth,
         height = width / 3,
         N = Math.round(width/5+1),
@@ -202,13 +244,19 @@
       ];
     }
   );
-})();
+}, false);
 
 
 /////////////////////////////////////////////////////////////////////////////
 // generative geometry
 /////////////////////////////////////////////////////////////////////////////
 (() => {
+  const width = window.innerWidth,
+        height = window.innerHeight;
+  initCanvas('#generative', width, height);
+})();
+
+Reveal.addEventListener('generative', () => {
   const width = window.innerWidth,
         height = window.innerHeight,
         scales = [width/14, height/14],
@@ -256,4 +304,4 @@
     },
     0.9925
   );
-})();
+}, false);

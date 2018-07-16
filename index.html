@@ -25,15 +25,18 @@
   <body>
     <div class="reveal">
       <div class="slides">
+
         <section>
           <h2>From Chaos to Order</h2>
           <p><a href="https://twitter.com/Xavier_Ho">@Xavier_Ho</a></p>
           <p>Data61 — WDYK Melbourne</p>
         </section>
+
         <section>
           <div class="tweet" data-src="https://twitter.com/inconvergent/status/942335517080870912"></div>
         </section>
-        <section>
+
+        <section data-state="circle">
           <h2>Randomly stamp circles</h2>
           <pre><code data-trim data-noescape class="large">
             cx += random()
@@ -42,7 +45,8 @@
           </code></pre>
           <div id="circle"></div>
         </section>
-        <section>
+
+        <section data-state="line">
           <h2>Directional randomness</h2>
           <pre><code data-trim data-noescape class="large">
             cx += random() * 0.2
@@ -50,7 +54,8 @@
           </code></pre>
           <div id="line"></div>
         </section>
-        <section>
+
+        <section data-state="line-order">
           <h2>Shepherding random numbers</h2>
           <pre><code data-trim data-noescape class="large">
             velocity = random()
@@ -59,35 +64,42 @@
           </code></pre>
           <div id="line-order"></div>
         </section>
-        <section>
+
+        <section data-state="line-order-more">
           <h2>More shepherding random numbers</h2>
           <div id="line-order-more"></div>
         </section>
-        <section>
+
+        <section data-state="line-order-2d">
           <h2>Shepherding in 2D</h2>
           <div id="line-order-2d"></div>
         </section>
-        <section>
+
+        <section data-state="line-order-2d-small-step">
           <h2>Two random volecities in 2D</h2>
           <pre><code data-trim data-noescape class="large">
             c += velocity + accumulating + anotherVelocity
           </code></pre>
           <div id="line-order-2d-small-step"></div>
         </section>
-        <section>
+
+        <section data-state="circle-order">
           <h2>Shepherding on circle</h2>
           <pre><code data-trim data-noescape class="large">
             cy += velocities[N..N-50] + accumulates[N..N-50]
           </code></pre>
           <div id="circle-order"></div>
         </section>
-        <section>
+
+        <section data-state="generative">
           <div id="generative"></div>
         </section>
+
         <section>
           <p>This slidedeck — tinyurl.com/<b>WDYK-Order</b></p>
           <div class="tweet" data-src="https://twitter.com/kGolid/status/972852438968537088"></div>
         </section>
+
         <section>
           <p><a href="https://twitter.com/Xavier_Ho">@Xavier_Ho</a></p>
         </section>
