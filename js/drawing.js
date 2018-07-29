@@ -1,7 +1,7 @@
 // Let us find order among chaos
 
 /////////////////////////////////////////////////////////////////////////////
-// circle
+// Randomly stamp circles
 /////////////////////////////////////////////////////////////////////////////
 setupSlide(
   'circle',
@@ -10,7 +10,7 @@ setupSlide(
 
   (ctx, width, height) => {
     const N = 1,
-          scales = [10, 10];
+          scales = [ 5, 5 ];
     const coords = [ [0, 0] ];
 
     loopAnimation(ctx, [width/2, height/2],
@@ -25,12 +25,12 @@ setupSlide(
           )
         ];
       },
-      0.95
+      0.98
     );
 });
 
 /////////////////////////////////////////////////////////////////////////////
-// line
+// Directional randomness
 /////////////////////////////////////////////////////////////////////////////
 setupSlide(
   'line',
@@ -54,22 +54,22 @@ setupSlide(
           )
         ];
       },
-      0.98
+      0.975
     );
 });
 
 
 /////////////////////////////////////////////////////////////////////////////
-// line - ordered
+// Shepherding random numbers
 /////////////////////////////////////////////////////////////////////////////
 setupSlide(
   'line-order',
   getWindowWidth(),
-  getWindowWidth()/2,
+  getWindowWidth()/3,
 
   (ctx, width, height) => {
     const N = Math.round(width/20+1),
-          scales = [0.1, 1];
+          scales = [0.1, 1.5];
     const coords = generateLineCoords(width, N);
 
     loopAnimation(ctx, [0, height/2],
@@ -84,13 +84,13 @@ setupSlide(
           )
         ];
       },
-      0.99
+      0.98
     );
 });
 
 
 /////////////////////////////////////////////////////////////////////////////
-// line - ordered - more
+// More shepherding random numbers
 /////////////////////////////////////////////////////////////////////////////
 setupSlide(
   'line-order-more',
@@ -113,7 +113,8 @@ setupSlide(
             move(coord, coeffs[i], coeffs2[i])
           )
         ];
-      }
+      },
+      0.99
     );
 });
 

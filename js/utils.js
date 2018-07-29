@@ -22,10 +22,16 @@ const moveRadial = ([x, y], amount) => ([x * amount, y * amount]);
 const initCanvas = (selector, width, height) => {
   const parent = document.querySelector(selector);
   const canvas = parent.querySelector('canvas') || document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
+  // Make sure canvas reflect the device's pixel density
+  const scale = window.devicePixelRatio;
+  canvas.width = width * scale;
+  canvas.height = height * scale;
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
   parent.appendChild(canvas);
+  // Normalize coordinate system to use css pixels.
   const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
   return ctx;
 };
 
@@ -82,7 +88,9 @@ const generateAccumulatedCoefficients = (coeffs) => {
 const deepcopy = (x) => JSON.parse(JSON.stringify(x));
 
 const loopAnimation = (ctx, [offsetX, offsetY], drawFunc, params, update, fade=0.992) => {
-  let opacity = 1;
+  let opacity = 0.125;
+  let energy = 1;
+  let exhaust = 0.001;
   let initialParams = deepcopy(params);
 
   // Stop the loop if the slide has changed
@@ -98,12 +106,12 @@ const loopAnimation = (ctx, [offsetX, offsetY], drawFunc, params, update, fade=0
   const callback = () => {
     drawFunc(ctx, [offsetX, offsetY], opacity, ...params);
     params = update(params);
-    opacity *= fade;
-    if (opacity < 1/255) {
+    energy *= fade;
+    if (energy < exhaust) {
       window.setTimeout(() => {
         ctx.beginPath();
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        opacity = 1;
+        energy = 1;
         params = initialParams;
         loop(callback);
       }, 1000);
