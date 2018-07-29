@@ -2,7 +2,7 @@
 */
 const apply = (rule, state) => {
   return state.split('').map(d => {
-    return rule.hasOwnProperty(d) ? rule[d] : [d];
+    return rule.hasOwnProperty(d) ? rule[d] : d;
   }).join('');
 };
 
