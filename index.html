@@ -80,7 +80,7 @@
         <section data-state="circle-order">
           <h2>Shepherding on circle</h2>
           <pre><code data-trim data-noescape class="large">
-            cy += velocities[N..N-50] + accumulates[N..N-50]
+            cy += velocities[N..N-100] + accumulates[N..N-100]
           </code></pre>
           <div id="circle-order"></div>
         </section>
@@ -105,9 +105,7 @@
     <script src="js/reveal.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/lib/alea.min.js"></script>
-
-    <script src="js/utils.js"></script>
-    <script src="js/drawing.js"></script>
+    <script type="module" src="js/drawing.js"></script>
 
     <script>
       // More info about config & dependencies:

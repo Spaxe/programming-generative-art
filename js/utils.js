@@ -1,7 +1,7 @@
-const id = x => x;
+// A new random seed every 5 seconds
 let random = new alea(Math.random());
 window.setInterval( () => {
-  random = new alea(Math.random());
+  random = new alea(random());
 }, 5000);
 
 const clamp = (min, max, x) => {
@@ -174,8 +174,48 @@ const generativeLines = (ctx, [offsetX, offsetY], opacity, thickness, coords) =>
 
 const setupSlide = (id, width, height, func) => {
   const ctx = initCanvas(`#${id}`, width, height);
-  Reveal.addEventListener(id, () => { func(ctx, width, height) }, false);
+  Reveal.addEventListener(id, () => { func(ctx, width, height) }, true);
+
+  // Ensure only the current slide starts animation on refresh
+  const thisSlideId = document.querySelector('section.present').getAttribute('data-state');
+  if (thisSlideId && id === thisSlideId) {
+    func(ctx, width, height);
+  }
 };
 
 const getWindowWidth = () => window.innerWidth;
 const getWindowHeight = () => window.innerHeight;
+
+export default {
+  // general
+  clamp,
+  shuffle,
+  random,
+
+  // transformation
+  move,
+  moveRadial,
+
+  // setup
+  setupSlide,
+  initCanvas,
+
+  // looping
+  loopAnimation,
+
+  // procedural generation
+  generateRandomLine,
+  generateLineCoords,
+  generateCircleCoords,
+  generateCoefficients,
+  generateAccumulatedCoefficients,
+
+  // drawing
+  circles,
+  circlesStroked,
+  generativeLines,
+
+  // window query
+  getWindowWidth,
+  getWindowHeight,
+};

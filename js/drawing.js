@@ -1,27 +1,28 @@
 // Let us find order among chaos
+import utils from './utils.js';
 
 /////////////////////////////////////////////////////////////////////////////
 // Randomly stamp circles
 /////////////////////////////////////////////////////////////////////////////
-setupSlide(
+utils.setupSlide(
   'circle',
-  getWindowWidth(),
-  getWindowHeight()/1.5,
+  utils.getWindowWidth(),
+  utils.getWindowHeight()/1.5,
 
   (ctx, width, height) => {
     const N = 1,
           scales = [ 5, 5 ];
     const coords = [ [0, 0] ];
 
-    loopAnimation(ctx, [width/2, height/2], 0.125,
-      circlesStroked,
+    utils.loopAnimation(ctx, [width/2, height/2], 0.125,
+      utils.circlesStroked,
       [height/4, coords],
       ([r, coords]) => {
-        const coeffs = generateCoefficients(N, scales);
+        const coeffs = utils.generateCoefficients(N, scales);
 
         return [ r,
           coords.map( (coord, i) =>
-            move(coord, coeffs[i], [0, 0])
+            utils.move(coord, coeffs[i], [0, 0])
           )
         ];
       },
@@ -33,25 +34,25 @@ setupSlide(
 /////////////////////////////////////////////////////////////////////////////
 // Directional randomness
 /////////////////////////////////////////////////////////////////////////////
-setupSlide(
+utils.setupSlide(
   'line',
-  getWindowWidth(),
-  getWindowWidth()/3,
+  utils.getWindowWidth(),
+  utils.getWindowWidth()/3,
 
   (ctx, width, height) => {
     const N = Math.round(width/20+1),
           scales = [0.2, 10];
-    const coords = generateLineCoords(width, N);
+    const coords = utils.generateLineCoords(width, N);
 
-    loopAnimation(ctx, [0, height/2], 0.125,
-      circlesStroked,
+    utils.loopAnimation(ctx, [0, height/2], 0.125,
+      utils.circlesStroked,
       [5, coords],
       ([r, coords]) => {
-        const coeffs = generateCoefficients(N, scales);
+        const coeffs = utils.generateCoefficients(N, scales);
 
         return [ r,
           coords.map( (coord, i) =>
-            move(coord, coeffs[i], [0, 0])
+            utils.move(coord, coeffs[i], [0, 0])
           )
         ];
       },
@@ -63,25 +64,25 @@ setupSlide(
 /////////////////////////////////////////////////////////////////////////////
 // Shepherding random numbers
 /////////////////////////////////////////////////////////////////////////////
-setupSlide(
+utils.setupSlide(
   'line-order',
-  getWindowWidth(),
-  getWindowWidth()/3,
+  utils.getWindowWidth(),
+  utils.getWindowWidth()/3,
 
   (ctx, width, height) => {
     const N = Math.round(width/20+1),
           scales = [0.1, 1.5];
-    const coords = generateLineCoords(width, N);
+    const coords = utils.generateLineCoords(width, N);
 
-    loopAnimation(ctx, [0, height/2], 0.125,
-      circlesStroked,
+    utils.loopAnimation(ctx, [0, height/2], 0.125,
+      utils.circlesStroked,
       [5, coords],
       ([r, coords]) => {
-        const coeffs = generateCoefficients(N, scales);
-        const coeffs2 = generateAccumulatedCoefficients(coeffs);
+        const coeffs = utils.generateCoefficients(N, scales);
+        const coeffs2 = utils.generateAccumulatedCoefficients(coeffs);
         return [ r,
           coords.map( (coord, i) =>
-            move(coord, coeffs[i], coeffs2[i])
+            utils.move(coord, coeffs[i], coeffs2[i])
           )
         ];
       },
@@ -93,25 +94,25 @@ setupSlide(
 /////////////////////////////////////////////////////////////////////////////
 // More shepherding random numbers
 /////////////////////////////////////////////////////////////////////////////
-setupSlide(
+utils.setupSlide(
   'line-order-more',
-  getWindowWidth(),
-  getWindowWidth()/2,
+  utils.getWindowWidth(),
+  utils.getWindowWidth()/2,
 
   (ctx, width, height) => {
     const N = Math.round(width/3+1),
           scales = [0.1, 1];
-    const coords = generateLineCoords(width, N);
+    const coords = utils.generateLineCoords(width, N);
 
-    loopAnimation(ctx, [0, height/2], 0.125,
-      circlesStroked,
+    utils.loopAnimation(ctx, [0, height/2], 0.125,
+      utils.circlesStroked,
       [0.75, coords],
       ([r, coords]) => {
-        const coeffs = generateCoefficients(N, scales);
-        const coeffs2 = generateAccumulatedCoefficients(coeffs);
+        const coeffs = utils.generateCoefficients(N, scales);
+        const coeffs2 = utils.generateAccumulatedCoefficients(coeffs);
         return [ r,
           coords.map( (coord, i) =>
-            move(coord, coeffs[i], coeffs2[i])
+            utils.move(coord, coeffs[i], coeffs2[i])
           )
         ];
       },
@@ -123,25 +124,25 @@ setupSlide(
 /////////////////////////////////////////////////////////////////////////////
 // Shepherding in 2D
 /////////////////////////////////////////////////////////////////////////////
-setupSlide(
+utils.setupSlide(
   'line-order-2d',
-  getWindowWidth(),
-  getWindowWidth()/2,
+  utils.getWindowWidth(),
+  utils.getWindowWidth()/2,
 
   (ctx, width, height) => {
     const N = Math.round(width/3+1),
           scales = [0.5, 0.5];
-    const coords = generateLineCoords(width, N);
+    const coords = utils.generateLineCoords(width, N);
 
-    loopAnimation(ctx, [0, height/2], 0.125,
-      circlesStroked,
+    utils.loopAnimation(ctx, [0, height/2], 0.125,
+      utils.circlesStroked,
       [0.5, coords],
       ([r, coords]) => {
-        const coeffs = generateCoefficients(N, scales);
-        const coeffs2 = generateAccumulatedCoefficients(coeffs);
+        const coeffs = utils.generateCoefficients(N, scales);
+        const coeffs2 = utils.generateAccumulatedCoefficients(coeffs);
         return [ r,
           coords.map( (coord, i) =>
-            move(coord, coeffs[i], coeffs2[i])
+            utils.move(coord, coeffs[i], coeffs2[i])
           )
         ];
       }
@@ -152,29 +153,29 @@ setupSlide(
 /////////////////////////////////////////////////////////////////////////////
 // Two random volecities in 2D
 /////////////////////////////////////////////////////////////////////////////
-setupSlide(
+utils.setupSlide(
   'line-order-2d-small-step',
-  getWindowWidth(),
-  getWindowWidth()/2,
+  utils.getWindowWidth(),
+  utils.getWindowWidth()/2,
 
   (ctx, width, height) => {
     const N = Math.round(width/5+1),
           scales = [0.3, 0.3],
           scales2 = [2.5, 2.5];
-    const coords = generateLineCoords(width, N);
-    const coeffs = generateCoefficients(N, scales);
-    const coeffs2 = generateAccumulatedCoefficients(coeffs);
+    const coords = utils.generateLineCoords(width, N);
+    const coeffs = utils.generateCoefficients(N, scales);
+    const coeffs2 = utils.generateAccumulatedCoefficients(coeffs);
 
-    loopAnimation(ctx, [0, height/2], 0.25,
-      circlesStroked,
+    utils.loopAnimation(ctx, [0, height/2], 0.25,
+      utils.circlesStroked,
       [0.5, coords],
       ([r, coords]) => {
-        const newCoeffs = generateCoefficients(N, scales2);
+        const newCoeffs = utils.generateCoefficients(N, scales2);
 
         return [ r,
           coords.map( (coord, i) => {
-            let newCoord = move(coord, coeffs[i], coeffs2[i]);
-            newCoord = move(newCoord, newCoeffs[i], [0, 0]);
+            let newCoord = utils.move(coord, coeffs[i], coeffs2[i]);
+            newCoord = utils.move(newCoord, newCoeffs[i], [0, 0]);
             return newCoord;
           })
         ];
@@ -186,32 +187,32 @@ setupSlide(
 /////////////////////////////////////////////////////////////////////////////
 // Shepherding on circle
 /////////////////////////////////////////////////////////////////////////////
-setupSlide(
+utils.setupSlide(
   'circle-order',
-  getWindowWidth(),
-  getWindowWidth()/3,
+  utils.getWindowWidth(),
+  utils.getWindowWidth()/3,
 
   (ctx, width, height) => {
     const N = Math.round(width/5+1),
           scales = [0.02, 0.02],
           scales2 = [2.5, 2.5];
-    const coords = generateCircleCoords(height / 3, N);
+    const coords = utils.generateCircleCoords(height / 3, N);
 
-    loopAnimation(ctx, [width/2, height/2], 0.125,
-      circlesStroked,
+    utils.loopAnimation(ctx, [width/2, height/2], 0.125,
+      utils.circlesStroked,
       [0.5, coords],
       ([r, coords]) => {
-        const coeffs = generateCoefficients(N, scales);
-        const coeffs2 = generateAccumulatedCoefficients(coeffs);
-        const newCoeffs = generateCoefficients(N, scales2);
+        const coeffs = utils.generateCoefficients(N, scales);
+        const coeffs2 = utils.generateAccumulatedCoefficients(coeffs);
+        const newCoeffs = utils.generateCoefficients(N, scales2);
 
         return [ r,
           coords.map( (coord, i) => {
-            let newCoord = moveRadial(coord, 1.001);
-            newCoord = move(newCoord, coeffs[i], coeffs2[i]);
-            newCoord = move(newCoord, newCoeffs[i], [0, 0]);
-            for (let w = 0; w < 50; w++) {
-              newCoord = move(newCoord, coeffs[(N+i-w) % N], coeffs2[(N+i-w) % N]);
+            let newCoord = utils.moveRadial(coord, 1.001);
+            newCoord = utils.move(newCoord, coeffs[i], coeffs2[i]);
+            newCoord = utils.move(newCoord, newCoeffs[i], [0, 0]);
+            for (let w = 0; w < 100; w++) {
+              newCoord = utils.move(newCoord, coeffs[(N+i-w) % N], coeffs2[(N+i-w) % N]);
             }
             return newCoord;
           })
@@ -224,28 +225,28 @@ setupSlide(
 /////////////////////////////////////////////////////////////////////////////
 // generative geometry
 /////////////////////////////////////////////////////////////////////////////
-setupSlide(
+utils.setupSlide(
   'generative',
-  getWindowWidth(),
-  getWindowHeight(),
+  utils.getWindowWidth(),
+  utils.getWindowHeight(),
 
   (ctx, width, height) => {
     const scales = [width/14, height/14],
           coeffScales = [width/14, height/14];
-    const coords = generateRandomLine(scales);
+    const coords = utils.generateRandomLine(scales);
     let trianglePoint = coords[0];
 
-    loopAnimation(ctx, [width/2, height/2], 0.5,
-      generativeLines,
+    utils.loopAnimation(ctx, [width/2, height/2], 0.5,
+      utils.generativeLines,
       [1, coords],
       ([thickness, coords]) => {
 
-        const coeffs = generateCoefficients(coords.length, coeffScales);
-        const movedCoords = move(coords[2], coeffs[0], coeffs[1]);
-        let movedCoords2 = move(movedCoords, [0, 0], coeffs[2]);
-        movedCoords2 = moveRadial(movedCoords2, 0.99);
+        const coeffs = utils.generateCoefficients(coords.length, coeffScales);
+        const movedCoords = utils.move(coords[2], coeffs[0], coeffs[1]);
+        let movedCoords2 = utils.move(movedCoords, [0, 0], coeffs[2]);
+        movedCoords2 = utils.moveRadial(movedCoords2, 0.99);
 
-        const S = random();
+        const S = utils.random();
 
         if (S < 0.9) { // return to second previous path and form triangle
 
