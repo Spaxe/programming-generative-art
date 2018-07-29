@@ -87,8 +87,7 @@ const generateAccumulatedCoefficients = (coeffs) => {
 
 const deepcopy = (x) => JSON.parse(JSON.stringify(x));
 
-const loopAnimation = (ctx, [offsetX, offsetY], drawFunc, params, update, fade=0.992) => {
-  let opacity = 0.125;
+const loopAnimation = (ctx, [offsetX, offsetY], opacity, drawFunc, params, update, fade=0.992) => {
   let energy = 1;
   let exhaust = 0.001;
   let initialParams = deepcopy(params);
@@ -102,6 +101,9 @@ const loopAnimation = (ctx, [offsetX, offsetY], drawFunc, params, update, fade=0
       window.requestAnimationFrame(func);
     }
   };
+
+  // Clear the canvas at first
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
   const callback = () => {
     drawFunc(ctx, [offsetX, offsetY], opacity, ...params);

@@ -13,7 +13,7 @@ setupSlide(
           scales = [ 5, 5 ];
     const coords = [ [0, 0] ];
 
-    loopAnimation(ctx, [width/2, height/2],
+    loopAnimation(ctx, [width/2, height/2], 0.125,
       circlesStroked,
       [height/4, coords],
       ([r, coords]) => {
@@ -29,6 +29,7 @@ setupSlide(
     );
 });
 
+
 /////////////////////////////////////////////////////////////////////////////
 // Directional randomness
 /////////////////////////////////////////////////////////////////////////////
@@ -42,7 +43,7 @@ setupSlide(
           scales = [0.2, 10];
     const coords = generateLineCoords(width, N);
 
-    loopAnimation(ctx, [0, height/2],
+    loopAnimation(ctx, [0, height/2], 0.125,
       circlesStroked,
       [5, coords],
       ([r, coords]) => {
@@ -72,7 +73,7 @@ setupSlide(
           scales = [0.1, 1.5];
     const coords = generateLineCoords(width, N);
 
-    loopAnimation(ctx, [0, height/2],
+    loopAnimation(ctx, [0, height/2], 0.125,
       circlesStroked,
       [5, coords],
       ([r, coords]) => {
@@ -98,13 +99,13 @@ setupSlide(
   getWindowWidth()/2,
 
   (ctx, width, height) => {
-    const N = Math.round(width/5+1),
-          scales = [0.1, 2];
+    const N = Math.round(width/3+1),
+          scales = [0.1, 1];
     const coords = generateLineCoords(width, N);
 
-    loopAnimation(ctx, [0, height/2],
+    loopAnimation(ctx, [0, height/2], 0.125,
       circlesStroked,
-      [1, coords],
+      [0.75, coords],
       ([r, coords]) => {
         const coeffs = generateCoefficients(N, scales);
         const coeffs2 = generateAccumulatedCoefficients(coeffs);
@@ -120,7 +121,7 @@ setupSlide(
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 2D ordered
+// Shepherding in 2D
 /////////////////////////////////////////////////////////////////////////////
 setupSlide(
   'line-order-2d',
@@ -128,11 +129,11 @@ setupSlide(
   getWindowWidth()/2,
 
   (ctx, width, height) => {
-    const N = Math.round(width/5+1),
-          scales = [1.5, 1.5];
+    const N = Math.round(width/3+1),
+          scales = [0.5, 0.5];
     const coords = generateLineCoords(width, N);
 
-    loopAnimation(ctx, [0, height/2],
+    loopAnimation(ctx, [0, height/2], 0.125,
       circlesStroked,
       [0.5, coords],
       ([r, coords]) => {
@@ -149,7 +150,7 @@ setupSlide(
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 2D ordered - 2 veolcities
+// Two random volecities in 2D
 /////////////////////////////////////////////////////////////////////////////
 setupSlide(
   'line-order-2d-small-step',
@@ -164,7 +165,7 @@ setupSlide(
     const coeffs = generateCoefficients(N, scales);
     const coeffs2 = generateAccumulatedCoefficients(coeffs);
 
-    loopAnimation(ctx, [0, height/2],
+    loopAnimation(ctx, [0, height/2], 0.25,
       circlesStroked,
       [0.5, coords],
       ([r, coords]) => {
@@ -183,7 +184,7 @@ setupSlide(
 
 
 /////////////////////////////////////////////////////////////////////////////
-// circle ordered
+// Shepherding on circle
 /////////////////////////////////////////////////////////////////////////////
 setupSlide(
   'circle-order',
@@ -196,7 +197,7 @@ setupSlide(
           scales2 = [2.5, 2.5];
     const coords = generateCircleCoords(height / 3, N);
 
-    loopAnimation(ctx, [width/2, height/2],
+    loopAnimation(ctx, [width/2, height/2], 0.125,
       circlesStroked,
       [0.5, coords],
       ([r, coords]) => {
@@ -234,7 +235,7 @@ setupSlide(
     const coords = generateRandomLine(scales);
     let trianglePoint = coords[0];
 
-    loopAnimation(ctx, [width/2, height/2],
+    loopAnimation(ctx, [width/2, height/2], 0.5,
       generativeLines,
       [1, coords],
       ([thickness, coords]) => {
