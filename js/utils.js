@@ -89,23 +89,18 @@ const generateAccumulatedCoefficients = (coeffs) => {
 
 const deepcopy = (x) => JSON.parse(JSON.stringify(x));
 
-const loopAnimation = (ctx, [offsetX, offsetY], opacity,
-  drawFunc,
-  params,
-  update,
-  fade=0.992) => {
-    let energy = 1;
-    let exhaust = 0.001;
-    let initialParams = deepcopy(params);
+const loopAnimation = (ctx, [offsetX, offsetY], opacity, drawFunc, params, update, iterations=10000) => {
+  let count = 0;
+  let initialParams = deepcopy(params);
 
-    // Stop the loop if the slide has changed
-    const initialSlideState = Reveal.getIndices();
-    const loop = (func) => {
-      if (initialSlideState.h !== Reveal.getIndices().h) {
-        return;
-      } else {
-        window.requestAnimationFrame(func);
-      }
+  // Stop the loop if the slide has changed
+  const initialSlideState = Reveal.getIndices();
+  const loop = (func) => {
+    if (initialSlideState.h !== Reveal.getIndices().h) {
+      return;
+    } else {
+      window.requestAnimationFrame(func);
+    }
   };
 
   // Clear the canvas at first
@@ -114,11 +109,11 @@ const loopAnimation = (ctx, [offsetX, offsetY], opacity,
   const callback = () => {
     drawFunc(ctx, [offsetX, offsetY], opacity, ...params);
     params = update(params);
-    energy *= fade;
-    if (energy < exhaust) {
+    count++;
+    if (count >= iterations) {
       window.setTimeout(() => {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        energy = 1;
+        count = 0;
         params = initialParams;
         loop(callback);
       }, 1000);
@@ -184,18 +179,16 @@ const generativeLines = (ctx, [offsetX, offsetY], opacity, thickness, coords) =>
 };
 
 let turtleCache = [];
-const paint = (ctx, angleOffset, s, point, angle) => {
+const paint = (ctx, scale, angleOffset, s, point, angle) => {
   switch (s) {
     case 'F':
       const [x, y] = [
-        point[0] + Math.cos(angle) * 50,
-        point[1] + Math.sin(angle) * 50,
+        point[0] + Math.cos(angle) * scale,
+        point[1] + Math.sin(angle) * scale,
       ];
 
-      ctx.beginPath();
       ctx.moveTo(point[0], point[1]);
       ctx.lineTo(x, y);
-      ctx.stroke();
 
       point = [x, y];
       break;
@@ -210,19 +203,22 @@ const paint = (ctx, angleOffset, s, point, angle) => {
       break;
     case ']':
       [point, angle] = turtleCache.pop()
+      ctx.moveTo(point[0], point[1]);
       break;
   }
   return [point, angle];
 };
 
-const generativeTurtle = (ctx, [offsetX, offsetY], opacity, angleOffset, state) => {
+const generativeTurtle = (ctx, [offsetX, offsetY], opacity, scale, angleOffset, state, length) => {
   let point = [0, 0];
   let angle = 0;
 
   ctx.save();
+  ctx.beginPath();
   ctx.translate(offsetX, offsetY);
   ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
-  state.split('').forEach(s => [point, angle] = paint(ctx, angleOffset, s, point, angle) );
+  state.substring(0, length).split('').forEach(st => [point, angle] = paint(ctx, scale, angleOffset, st, point, angle) );
+  ctx.stroke();
   ctx.restore();
 };
 

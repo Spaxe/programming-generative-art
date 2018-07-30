@@ -27,7 +27,7 @@ utils.setupSlide(
           )
         ];
       },
-      0.98
+      500
     );
 });
 
@@ -57,7 +57,7 @@ utils.setupSlide(
           )
         ];
       },
-      0.975
+      400
     );
 });
 
@@ -87,7 +87,7 @@ utils.setupSlide(
           )
         ];
       },
-      0.98
+      600
     );
 });
 
@@ -117,7 +117,7 @@ utils.setupSlide(
           )
         ];
       },
-      0.99
+      1000
     );
 });
 
@@ -146,7 +146,8 @@ utils.setupSlide(
             utils.move(coord, coeffs[i], coeffs2[i])
           )
         ];
-      }
+      },
+      1000
     );
 });
 
@@ -180,7 +181,8 @@ utils.setupSlide(
             return newCoord;
           })
         ];
-      }
+      },
+      500
     );
 });
 
@@ -218,13 +220,71 @@ utils.setupSlide(
             return newCoord;
           })
         ];
-      }
+      },
+      500
     );
 });
 
 
 /////////////////////////////////////////////////////////////////////////////
-// generative geometry
+// L-Systems: Rectangles
+/////////////////////////////////////////////////////////////////////////////
+utils.setupSlide(
+  'rectangles-1',
+  utils.getWindowWidth(),
+  utils.getWindowHeight(),
+
+  (ctx, width, height) => {
+    // apply the rule N times
+    let state = L.rectangles.start;
+    for (let i = 0; i < 4; i++) {
+      state = L.apply(L.rectangles.rule, state);
+    }
+    const speed = 100;
+    const scale = 10;
+
+    utils.loopAnimation(ctx, [width/2, height/2], 0.1,
+      utils.generativeTurtle,
+      [scale, L.rectangles.angle, state, 0],
+      ([scale, angleOffset, state, length]) => {
+        // Find the next drawing state for smooth drawing animation
+        return [scale, angleOffset, state, length+speed];
+      },
+      1000
+    );
+});
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Hilbert
+/////////////////////////////////////////////////////////////////////////////
+utils.setupSlide(
+  'hilbert',
+  utils.getWindowWidth(),
+  utils.getWindowHeight(),
+
+  (ctx, width, height) => {
+    // apply the rule N times
+    let state = L.hilbert.start;
+    for (let i = 0; i < 7; i++) {
+      state = L.apply(L.hilbert.rule, state);
+    }
+    const speed = 100;
+
+    utils.loopAnimation(ctx, [(width - 700)/2, (height - 700)/2], 0.1,
+      utils.generativeTurtle,
+      [5, L.hilbert.angle, state, 0],
+      ([scale, angleOffset, state, length]) => {
+        // Find the next drawing state for smooth drawing animation
+        return [scale, angleOffset, state, length+speed];
+      },
+      10000
+    );
+});
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Penrose
 /////////////////////////////////////////////////////////////////////////////
 utils.setupSlide(
   'penrose',
@@ -232,15 +292,20 @@ utils.setupSlide(
   utils.getWindowHeight(),
 
   (ctx, width, height) => {
+    // apply the rule N times
+    let state = L.penrose.start;
+    for (let i = 0; i < 5; i++) {
+      state = L.apply(L.penrose.rule, state);
+    }
+    const speed = 500;
+
     utils.loopAnimation(ctx, [width/2, height/2], 0.25,
       utils.generativeTurtle,
-      [L.penrose.angle, L.penrose.start],
-      ([angleOffset, state]) => {
-        if (state.length > 10000) {
-          return [angleOffset, state];
-        }
-        return [angleOffset, L.apply(L.penrose.rule, state)];
+      [35, L.penrose.angle, state, 0],
+      ([scale, angleOffset, state, length]) => {
+        // Find the next drawing state for smooth drawing animation
+        return [scale, angleOffset, state, length+speed];
       },
-      0.9999
+      10000
     );
 });
