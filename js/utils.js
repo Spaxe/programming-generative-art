@@ -1,3 +1,5 @@
+import L from './l-system.js';
+
 // A new random seed every 5 seconds
 let random = new alea(Math.random());
 window.setInterval( () => {
@@ -87,19 +89,23 @@ const generateAccumulatedCoefficients = (coeffs) => {
 
 const deepcopy = (x) => JSON.parse(JSON.stringify(x));
 
-const loopAnimation = (ctx, [offsetX, offsetY], opacity, drawFunc, params, update, fade=0.992) => {
-  let energy = 1;
-  let exhaust = 0.001;
-  let initialParams = deepcopy(params);
+const loopAnimation = (ctx, [offsetX, offsetY], opacity,
+  drawFunc,
+  params,
+  update,
+  fade=0.992) => {
+    let energy = 1;
+    let exhaust = 0.001;
+    let initialParams = deepcopy(params);
 
-  // Stop the loop if the slide has changed
-  const initialSlideState = Reveal.getIndices();
-  const loop = (func) => {
-    if (initialSlideState.h !== Reveal.getIndices().h) {
-      return;
-    } else {
-      window.requestAnimationFrame(func);
-    }
+    // Stop the loop if the slide has changed
+    const initialSlideState = Reveal.getIndices();
+    const loop = (func) => {
+      if (initialSlideState.h !== Reveal.getIndices().h) {
+        return;
+      } else {
+        window.requestAnimationFrame(func);
+      }
   };
 
   // Clear the canvas at first
@@ -111,7 +117,6 @@ const loopAnimation = (ctx, [offsetX, offsetY], opacity, drawFunc, params, updat
     energy *= fade;
     if (energy < exhaust) {
       window.setTimeout(() => {
-        ctx.beginPath();
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         energy = 1;
         params = initialParams;
@@ -125,24 +130,29 @@ const loopAnimation = (ctx, [offsetX, offsetY], opacity, drawFunc, params, updat
 };
 
 const circles = (ctx, [offsetX, offsetY], opacity, r, coords) => {
+  ctx.save();
   ctx.fillStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
   for (let i = 0; i < coords.length; i++) {
     ctx.beginPath();
     ctx.arc(offsetX+coords[i][0], offsetY+coords[i][1], r, 0, 2*Math.PI, true);
     ctx.fill();
   }
+  ctx.restore();
 };
 
 const circlesStroked = (ctx, [offsetX, offsetY], opacity, r, coords) => {
+  ctx.save();
   ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
   for (let i = 0; i < coords.length; i++) {
     ctx.beginPath();
     ctx.arc(offsetX+coords[i][0], offsetY+coords[i][1], r, 0, 2*Math.PI, true);
     ctx.stroke();
   }
+  ctx.restore();
 };
 
 const generativeLines = (ctx, [offsetX, offsetY], opacity, thickness, coords) => {
+  ctx.save();
   ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
   ctx.beginPath();
 
@@ -170,6 +180,50 @@ const generativeLines = (ctx, [offsetX, offsetY], opacity, thickness, coords) =>
     ctx.stroke();
   }
 
+  ctx.restore();
+};
+
+let turtleCache = [];
+const paint = (ctx, angleOffset, s, point, angle) => {
+  switch (s) {
+    case 'F':
+      const [x, y] = [
+        point[0] + Math.cos(angle) * 50,
+        point[1] + Math.sin(angle) * 50,
+      ];
+
+      ctx.beginPath();
+      ctx.moveTo(point[0], point[1]);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+
+      point = [x, y];
+      break;
+    case '+':
+      angle += angleOffset;
+      break;
+    case '-':
+      angle -= angleOffset;
+      break;
+    case '[':
+      turtleCache.push([point, angle]);
+      break;
+    case ']':
+      [point, angle] = turtleCache.pop()
+      break;
+  }
+  return [point, angle];
+};
+
+const generativeTurtle = (ctx, [offsetX, offsetY], opacity, angleOffset, state) => {
+  let point = [0, 0];
+  let angle = 0;
+
+  ctx.save();
+  ctx.translate(offsetX, offsetY);
+  ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
+  state.split('').forEach(s => [point, angle] = paint(ctx, angleOffset, s, point, angle) );
+  ctx.restore();
 };
 
 const setupSlide = (id, width, height, func) => {
@@ -214,6 +268,7 @@ export default {
   circles,
   circlesStroked,
   generativeLines,
+  generativeTurtle,
 
   // window query
   getWindowWidth,

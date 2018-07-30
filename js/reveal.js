@@ -43,7 +43,7 @@
 			height: 1080,
 
 			// Factor of the display size that should remain empty around the content
-			margin: 0.04,
+			margin: 0,
 
 			// Bounds for smallest/largest possible scale to apply to content
 			minScale: 0.5,
