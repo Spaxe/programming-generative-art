@@ -162,7 +162,7 @@
 			transition: 'fade', // none/fade/slide/convex/concave/zoom
 
 			// Transition speed
-			transitionSpeed: 'default', // default/fast/slow
+			transitionSpeed: 'fast', // default/fast/slow
 
 			// Transition style for full page slide backgrounds
 			backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
