@@ -1,6 +1,6 @@
-# From Chaos to Order
+# Programming Generative Art - Web Directions Code 2018
 
-[View the slides online here](https://spaxe.github.io/WDYK-Melbourne).
+[View the slides online here](https://spaxe.github.io/programming-generative-art/).
 
 To run the presentation, clone this repository.
 
