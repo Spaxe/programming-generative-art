@@ -50,11 +50,11 @@
 			maxScale: 1.0,
 
 			// Display presentation control arrows
-			controls: true,
+			controls: false,
 
 			// Help the user learn the controls by providing hints, for example by
 			// bouncing the down arrow when they first encounter a vertical slide
-			controlsTutorial: true,
+			controlsTutorial: false,
 
 			// Determines where controls appear, "edges" or "bottom-right"
 			controlsLayout: 'bottom-right',
@@ -159,10 +159,10 @@
 			focusBodyOnPageVisibilityChange: true,
 
 			// Transition style
-			transition: 'slide', // none/fade/slide/convex/concave/zoom
+			transition: 'fade', // none/fade/slide/convex/concave/zoom
 
 			// Transition speed
-			transitionSpeed: 'fast', // default/fast/slow
+			transitionSpeed: 'default', // default/fast/slow
 
 			// Transition style for full page slide backgrounds
 			backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom

@@ -1,5 +1,8 @@
 import L from './l-system.js';
 
+// cache for the drawing funcs
+let turtleCache = [];
+
 // A new random seed every 5 seconds
 let random = new alea(Math.random());
 window.setInterval( () => {
@@ -146,42 +149,36 @@ const circlesStroked = (ctx, [offsetX, offsetY], opacity, r, coords) => {
   ctx.restore();
 };
 
-const generativeLines = (ctx, [offsetX, offsetY], opacity, thickness, coords) => {
+const horizontalLineStroked = (ctx, [offsetX, offsetY], colour, coords) => {
   ctx.save();
-  ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
+  ctx.translate(offsetX, offsetY);
+  ctx.strokeStyle = `${colour}` || 'white';
   ctx.beginPath();
-
-  const randomShape = random();
-
-  if (randomShape < 0.1) { // draw nothing
-
-  } else if (randomShape < 0.2) { // draw a thick line
-    ctx.lineWidth = thickness * 5;
-    ctx.moveTo(offsetX + coords[0][0], offsetY + coords[0][1]);
-    ctx.lineTo(offsetX + coords[1][0], offsetY + coords[1][1]);
-    ctx.stroke();
-    ctx.lineWidth = thickness;
-    ctx.lineTo(offsetX + coords[2][0], offsetY + coords[2][1]);
-    ctx.stroke();
-  } else if (randomShape < 0.225) {  // draw a circle
-    ctx.lineWidth = thickness;
-    ctx.arc(offsetX+coords[2][0], offsetY+coords[2][1], Math.max(random() * 50, 10), 0, 2*Math.PI, true);
-    ctx.stroke();
-  } else {  // draw ... a line
-    ctx.lineWidth = thickness;
-    ctx.moveTo(offsetX + coords[0][0], offsetY + coords[0][1]);
-    ctx.lineTo(offsetX + coords[1][0], offsetY + coords[1][1]);
-    ctx.lineTo(offsetX + coords[2][0], offsetY + coords[2][1]);
-    ctx.stroke();
-  }
-
+  ctx.moveTo(coords[0][0], coords[0][1]);
+  ctx.lineTo(coords[1][0], coords[1][1]);
+  ctx.stroke();
   ctx.restore();
 };
 
-let turtleCache = [];
+const linesStroked = (ctx, [offsetX, offsetY], colour, lines) => {
+  ctx.save();
+  ctx.translate(offsetX, offsetY);
+  ctx.strokeStyle = `${colour}` || 'white';
+  lines.forEach(line => {
+    ctx.beginPath();
+    ctx.moveTo(line[0][0], line[0][1]);
+    line.slice(1).forEach(([x, y]) => {
+      ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+  });
+  ctx.restore();
+};
+
 const paint = (ctx, scale, angleOffset, s, point, angle) => {
   switch (s) {
     case 'F':
+    case 'G': // Some grammars have two drawing codes, like the dragon curve
       const [x, y] = [
         point[0] + Math.cos(angle) * scale,
         point[1] + Math.sin(angle) * scale,
@@ -209,14 +206,14 @@ const paint = (ctx, scale, angleOffset, s, point, angle) => {
   return [point, angle];
 };
 
-const generativeTurtle = (ctx, [offsetX, offsetY], opacity, scale, angleOffset, state, length) => {
+const generativeTurtle = (ctx, [offsetX, offsetY], colour, scale, angleOffset, state, length) => {
   let point = [0, 0];
   let angle = 0;
 
   ctx.save();
   ctx.beginPath();
   ctx.translate(offsetX, offsetY);
-  ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})` || 'white';
+  ctx.strokeStyle = `${colour}` || 'white';
   state.substring(0, length).split('').forEach(st => [point, angle] = paint(ctx, scale, angleOffset, st, point, angle) );
   ctx.stroke();
   ctx.restore();
@@ -241,6 +238,7 @@ export default {
   clamp,
   shuffle,
   random,
+  deepcopy,
 
   // transformation
   move,
@@ -263,7 +261,8 @@ export default {
   // drawing
   circles,
   circlesStroked,
-  generativeLines,
+  horizontalLineStroked,
+  linesStroked,
   generativeTurtle,
 
   // window query

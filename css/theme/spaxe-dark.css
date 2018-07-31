@@ -76,8 +76,8 @@ body {
 .reveal img,
 .reveal video,
 .reveal iframe {
-  max-width: 95%;
-  max-height: 95%; }
+  max-width: 100%;
+  max-height: 100%; }
 
 .reveal strong,
 .reveal b {
@@ -203,7 +203,7 @@ body {
  * LINKS
  *********************************************/
 .reveal a {
-  color: rgb(129,196,194);
+  color: rgb(255, 189, 74);
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
@@ -223,9 +223,7 @@ body {
  *********************************************/
 .reveal section img {
   margin: 15px 0px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 4px solid #eee;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }
+  background: rgba(255, 255, 255, 0.12); }
 
 .reveal section img.plain {
   border: 0;
@@ -237,9 +235,7 @@ body {
   transition: all .15s linear; }
 
 .reveal a:hover img {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: #e7ad52;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }
+  background: rgba(255, 255, 255, 0.2); }
 
 /*********************************************
  * NAVIGATION CONTROLS

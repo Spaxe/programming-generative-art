@@ -25,15 +25,69 @@
     <div class="reveal">
       <div class="slides">
 
+        <section data-state="cover-slide">
+          <div>
+            <h2>Programming Generative Art</h2>
+            <p><a href="https://twitter.com/Xavier_Ho">@Xavier_Ho</a></p>
+            <p>Front-End Development &nbsp;&nbsp;|&nbsp;&nbsp; Data61</p>
+          </div>
+          <div id="cover-slide"></div>
+        </section>
+
+        <section data-background-image="https://static1.squarespace.com/static/51392274e4b0f86e34bbf68e/51392274e4b0f86e34bbf698/5ae282150e2e72e8e1be4a9a/1524794192378/DbnNYUiXcAA1wkI.jpg?format=original">
+        </section>
+
+        <section data-state="creative">
+          <h2>Programming is <span class="glitch creative">creative</span>.</h2>
+        </section>
+
+        <section data-state="knowledge">
+          <div id="knowledge"></div>
+        </section>
+
         <section>
-          <h2>Programming Generative Art</h2>
-          <p><a href="https://twitter.com/Xavier_Ho">@Xavier_Ho</a></p>
-          <p>Front-End Development&nbsp;&nbsp;|&nbsp;&nbsp;Data61</p>
+          <h2>Demystify generative art</h2>
+        </section>
+
+        <section data-background-image="img/caustics.gif">
+          <h2>Demystify generative art</h2>
+        </section>
+
+        <!-- <section data-background-color="white">
+          <img src="img/caustics-path.png">
+          <p class="small"><a href="http://lgg.epfl.ch/publications/2014/Caustics/paper.pdf">Schwartzburg et al., 2014</a></p>
+        </section> -->
+
+        <section data-background-color="white">
+          <img src="img/caustics-voronoi.png">
+          <p class="small"><a href="http://lgg.epfl.ch/publications/2014/Caustics/paper.pdf">Schwartzburg et al., 2014</a></p>
+        </section>
+
+        <section data-background-color="white">
+          <img src="img/voronoi-stippling.png" style="max-height: 80vh;">
+          <p class="small"><a href="https://beta.observablehq.com/@mbostock/voronoi-stippling">Bostock, 2018</a></p>
+        </section>
+
+        <!-- <section data-background-color="white">
+          <img src="img/monalisa.png" style="max-height: 80vh;">
+          <p class="small"><a href="http://www.psy.ritsumei.ac.jp/~akitaoka/slit-e.html">Kitaoka, 2015</a></p>
+        </section> -->
+
+        <section data-background-color="white">
+          <h3 class="black fragment">I. Shepherding Random Numbers</h3>
+          <h3 class="black fragment">II. Mutating L-Systems</h3>
+          <h3 class="black fragment">III. Summary</h3>
+        </section>
+
+        <section data-background-color="white">
+          <h3 class="black">I. Shepherding Random Numbers</h3>
+          <h3 class="light">II. Mutating L-Systems</h3>
+          <h3 class="light">III. Summary</h3>
         </section>
 
         <section data-state="circle">
           <h2>Randomly stamp circles</h2>
-          <pre><code data-trim data-noescape class="large">
+          <pre><code data-trim data-noescape class="javascript large">
             cx += random()
             cy += random()
           </code></pre>
@@ -42,7 +96,7 @@
 
         <section data-state="line">
           <h2>Directional randomness</h2>
-          <pre><code data-trim data-noescape class="large">
+          <pre><code data-trim data-noescape class="javascript large">
             cx += random() * 0.2
             cy += random() * 10
           </code></pre>
@@ -51,15 +105,17 @@
 
         <section data-state="line-order">
           <h2>Shepherding random numbers</h2>
-          <pre><code data-trim data-noescape class="large">
+          <pre><code data-trim data-noescape class="javascript large">
             velocity = random()
             accumulating = running_sum(velocity)
             c += velocity + accumulating
           </code></pre>
           <div id="line-order"></div>
+          <p class="small"><a href="https://inconvergent.net/2016/shepherding-random-numbers/">Hoff, 2016</a></p>
         </section>
 
         <section data-state="line-order-more">
+          <h2>More shepherding</h2>
           <div id="line-order-more"></div>
         </section>
 
@@ -70,35 +126,173 @@
 
         <section data-state="line-order-2d-small-step">
           <h2>Two random volecities in 2D</h2>
-          <pre><code data-trim data-noescape class="large">
+          <pre><code data-trim data-noescape class="javascript large">
             c += velocity + accumulating + anotherVelocity
           </code></pre>
           <div id="line-order-2d-small-step"></div>
         </section>
 
-        <section data-state="circle-order">
+        <!-- <section data-state="circle-order">
           <h2>Shepherding on circle</h2>
-          <pre><code data-trim data-noescape class="large">
+          <pre><code data-trim data-noescape class="javascript large">
             cy += velocities[N..N-100] + accumulates[N..N-100]
           </code></pre>
           <div id="circle-order"></div>
+        </section> -->
+
+        <section data-state="divergent">
+          <div id="divergent"></div>
+        </section>
+
+        <section>
+          <h3>I. Shepherding Random Numbers</h3>
+          <p>||</p>
+          <p>Starting points</p>
+          <p>+</p>
+          <p>random offsets</p>
+          <p>+</p>
+          <p>accumulated random offsets</p>
+        </section>
+
+        <section data-background-color="black">
+          <h3 class="dark">I. Shepherding Random Numbers</h3>
+          <h3>II. Mutating L-Systems</h3>
+          <h3 class="dark">III. Summary</h3>
+        </section>
+
+        <section>
+          <h3>String Substitutions</h3>
+          <img src="img/ababa.png" style="max-height: 80vh;">
+          <p class="small"><a href="http://algorithmicbotany.org/papers/abop/abop.pdf">Prusinkiewicz & Lindenmayer, 2004</a></p>
+        </section>
+
+        <section>
+          <h3>Turtle graphics</h3>
+          <img src="img/turtlegraphics.png" style="max-height: 80vh;">
+          <p class="small"><a href="http://algorithmicbotany.org/papers/abop/abop.pdf">Prusinkiewicz & Lindenmayer, 2004</a></p>
         </section>
 
         <section data-state="rectangles-1">
-          <h2>L-Systems</h2>
-          <div id="rectangles-1"></div>
+          <div class="flex">
+            <div class="pl2 col-2 flex flex-col vertical-align">
+              <h3>Draw a rectangle</h3>
+              <pre><code data-trim data-noescape class="javascript">
+                {
+                  start: 'F-F-F-F'
+                }
+              </code></pre>
+            </div>
+            <div id="rectangles-1" class="col-2"></div>
+          </div>
+        </section>
+
+        <section data-state="rectangles-2">
+          <div class="flex">
+            <div class="pl2 col-2 flex flex-col vertical-align">
+              <h3>Substitute F</h3>
+              <pre><code data-trim data-noescape class="javascript">
+                {
+                  start: 'F-F-F-F',
+                  rule: {
+                    F: 'FF-F+F-F-FF',
+                  }
+                }
+                //  FF-F+F-F-FF
+                // -FF-F+F-F-FF
+                // -FF-F+F-F-FF
+                // -FF-F+F-F-FF
+              </code></pre>
+            </div>
+            <div id="rectangles-2" class="col-2"></div>
+          </div>
+        </section>
+
+        <section data-state="rectangles-3">
+          <div id="rectangles-3"></div>
+        </section>
+
+        <section data-state="rectangles-4">
+          <div id="rectangles-4"></div>
+        </section>
+
+        <section data-state="rectangles-5">
+          <div id="rectangles-5"></div>
+        </section>
+
+        <section data-state="rectangles-6">
+          <div id="rectangles-6"></div>
         </section>
 
         <section data-state="hilbert">
           <div id="hilbert"></div>
+          <p class="small"><a href="https://en.wikipedia.org/wiki/Hilbert_curve#Representation_as_Lindenmayer_system">Hilbert Curve</a></p>
         </section>
 
         <section data-state="penrose">
           <div id="penrose"></div>
+          <p class="small"><a href="https://en.wikipedia.org/wiki/Penrose_tiling">Penrose Tiling</a></p>
+        </section>
+
+        <section data-state="blank">
+        </section>
+
+        <section data-state="rectangles-mutate">
+          <div id="rectangles-mutate"></div>
         </section>
 
         <section>
+          <h3>Mutation: Randomly replace a rule</h3>
+          <p class="fragment">F: 'FF-F+F-F-FF'</p>
+          <p class="fragment">↓</p>
+          <p class="fragment">F: 'F<span class="yellow">-</span>-F+F-F-FF'</p>
+          <p class="fragment">↓</p>
+          <p class="fragment">F: 'F--F+F<span class="yellow">F</span>F-FF'</p>
+          <p class="fragment">↓</p>
+          <p class="fragment">F: 'F--F+F-F-<span class="yellow">+</span>F'</p>
+        </section>
+
+        <section data-state="dragon-curve">
+          <div id="dragon-curve"></div>
+          <p class="small">Dragon curve</a></p>
+        </section>
+
+        <section data-state="dragon-curve-mutate">
+          <div id="dragon-curve-mutate"></div>
+        </section>
+
+        <section data-state="blank">
+        </section>
+
+        <section>
+          <h3>II. Mutating L-Systems</h3>
+          <p>L-Systems are recursive, substitution functions.</p>
+          <p>Changing a character can change the whole picture.</p>
+        </section>
+
+        <section>
+          <h3 class="dark">I. Shepherding Random Numbers</h3>
+          <h3 class="dark">II. Mutating L-Systems</h3>
+          <h3>III. Closing</h3>
+        </section>
+
+        <section>
+          <h3>Embrace uncertainty</h3>
+        </section>
+
+        <section>
+          <h3>Treat trial and error as normal</h3>
+        </section>
+
+        <section>
+          <h3>Logics can complement creativity</h3>
+        </section>
+
+        <section data-state="end-slide">
+          <p>Slides at <a href="https://spaxe.github.io/programming-generative-art">spaxe.github.io/programming-generative-art</a></p>
+          <div id="end-slide"></div>
+          <h3 style="padding-top: 5vh;">Programming Generative Art</h3>
           <p><a href="https://twitter.com/Xavier_Ho">@Xavier_Ho</a></p>
+          <p>Front-End Development &nbsp;&nbsp;|&nbsp;&nbsp; Data61</p>
         </section>
 
       </div>
