@@ -346,7 +346,7 @@ utils.setupSlide(
     const speed = 1;
     const scale = 100;
 
-    utils.loopAnimation(ctx, [width/3.5, height/1.75], 'rgba(255, 255, 255, 0.1)',
+    utils.loopAnimation(ctx, [width/3.5, height/2.5], 'rgba(255, 255, 255, 0.1)',
       utils.generativeTurtle,
       [scale, L.rectangles.angle, state, 0],
       ([scale, angleOffset, state, length]) => {
