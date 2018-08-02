@@ -338,7 +338,7 @@ utils.setupSlide(
 /////////////////////////////////////////////////////////////////////////////
 utils.setupSlide(
   'rectangles-1',
-  utils.getWindowWidth()/2,
+  utils.getWindowWidth(),
   utils.getWindowHeight()/2,
 
   (ctx, width, height) => {
@@ -363,7 +363,7 @@ utils.setupSlide(
 /////////////////////////////////////////////////////////////////////////////
 utils.setupSlide(
   'rectangles-2',
-  utils.getWindowWidth()/2,
+  utils.getWindowWidth(),
   utils.getWindowHeight()/3,
 
   (ctx, width, height) => {
