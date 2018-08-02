@@ -27,7 +27,7 @@
 
         <section data-state="cover-slide">
           <div>
-            <h2>Programming Generative Art</h2>
+            <h2 style="margin-left: 0; margin-right: 0">Programming Generative Art</h2>
             <p><a href="https://twitter.com/Xavier_Ho">@Xavier_Ho</a></p>
             <p>Front-End Development &nbsp;&nbsp;|&nbsp;&nbsp; Data61</p>
           </div>
@@ -173,38 +173,30 @@
         </section>
 
         <section data-state="rectangles-1">
-          <div class="flex">
-            <div class="pl2 col-2 flex flex-col vertical-align">
-              <h3>Draw a rectangle</h3>
-              <pre><code data-trim data-noescape class="javascript">
-                {
-                  start: 'F-F-F-F'
-                }
-              </code></pre>
-            </div>
-            <div id="rectangles-1" class="col-2"></div>
-          </div>
+          <h3>Draw a rectangle</h3>
+          <pre><code data-trim data-noescape class="javascript">
+            {
+              start: 'F-F-F-F'
+            }
+          </code></pre>
+          <div id="rectangles-1" class=""></div>
         </section>
 
         <section data-state="rectangles-2">
-          <div class="flex">
-            <div class="pl2 col-2 flex flex-col vertical-align">
-              <h3>Substitute F</h3>
-              <pre><code data-trim data-noescape class="javascript">
-                {
-                  start: 'F-F-F-F',
-                  rule: {
-                    F: 'FF-F+F-F-FF',
-                  }
-                }
-                //  FF-F+F-F-FF
-                // -FF-F+F-F-FF
-                // -FF-F+F-F-FF
-                // -FF-F+F-F-FF
-              </code></pre>
-            </div>
-            <div id="rectangles-2" class="col-2"></div>
-          </div>
+          <h3>Substitute F</h3>
+          <pre><code data-trim data-noescape class="javascript">
+            {
+              start: 'F-F-F-F',
+              rule: {
+                F: 'FF-F+F-F-FF',
+              }
+            }
+            //  FF-F+F-F-FF
+            // -FF-F+F-F-FF
+            // -FF-F+F-F-FF
+            // -FF-F+F-F-FF
+          </code></pre>
+        <div id="rectangles-2" class="col-2"></div>
         </section>
 
         <section data-state="rectangles-3">
@@ -315,7 +307,7 @@
           { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
           { src: 'plugin/notes/notes.js', async: true },
           { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-          { src: 'plugin/embed-tweet/embed-tweet.js' },
+          // { src: 'plugin/embed-tweet/embed-tweet.js' },
         ],
         history: true,
         progress: false,

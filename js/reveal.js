@@ -46,7 +46,7 @@
 			margin: 0,
 
 			// Bounds for smallest/largest possible scale to apply to content
-			minScale: 0.5,
+			minScale: 0.2,
 			maxScale: 1.0,
 
 			// Display presentation control arrows

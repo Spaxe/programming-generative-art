@@ -66,10 +66,10 @@
 
 @media (max-width: 1200px) {
   .reveal h1, .reveal h2, .reveal p {
-    font-size: 50%;
+    font-size: 80%;
   }
   .reveal pre code.large {
-    font-size: 50%;
+    font-size: 80%;
   }
 }
 

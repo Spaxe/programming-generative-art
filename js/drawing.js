@@ -339,7 +339,7 @@ utils.setupSlide(
 utils.setupSlide(
   'rectangles-1',
   utils.getWindowWidth()/2,
-  utils.getWindowHeight(),
+  utils.getWindowHeight()/2,
 
   (ctx, width, height) => {
     let state = L.rectangles.start;
@@ -364,13 +364,13 @@ utils.setupSlide(
 utils.setupSlide(
   'rectangles-2',
   utils.getWindowWidth()/2,
-  utils.getWindowHeight(),
+  utils.getWindowHeight()/3,
 
   (ctx, width, height) => {
     let state = L.rectangles.start;
     let state2 = L.apply(L.rectangles.rule, state);
     const speed = 1;
-    const scale = 100;
+    const scale = 50;
 
     utils.loopAnimation(ctx, [width/4, height/2], 'rgba(255, 255, 255, 0.1)',
       utils.generativeTurtle,
